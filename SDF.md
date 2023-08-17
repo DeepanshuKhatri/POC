@@ -18,7 +18,12 @@ One will be the main server and the other application will be treated as a micro
         app.listen();
   Note: Transport and MicroserviceOptions are imported from ``@nestjs/microservices``
 
-### 2.> In app.controller.ts, add the following code:
+### 2.> Create a create-user-event.ts file inside src folder and add the following code:
+     export class CreateUserEvent {
+          constructor(public readonly email:String){}
+     }
+
+### 3.> In app.controller.ts, add the following code:
     @EventPattern('user_created')
     handleUserCreated(data:CreateUserEvent){
       console.log('handleUserCreate-communication', data);
@@ -51,7 +56,7 @@ One will be the main server and the other application will be treated as a micro
 
 ### 4.> In app.controller.ts
     @Post()
-    createUser(@Body() createUserRequest:CREAteUserRequest){
+    createUser(@Body() createUserRequest:CreateUserRequest){
       return this.appService.createUser(createUserRequest)
     }
 
